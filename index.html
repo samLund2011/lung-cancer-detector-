@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#071512">
+  <title>LungView · Review Prototype</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#"><span class="mark">LV</span><span><b>LungView</b><small>IMAGE REVIEW PROTOTYPE</small></span></a>
+    <div class="privacy"><i></i> LOCAL PROCESSING · NO UPLOAD</div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div><p class="eyebrow">CLINICAL DECISION-SUPPORT CONCEPT</p><h1>Review lung imaging<br>with a clearer workflow.</h1><p class="lede">Upload a chest image, assess its technical quality, document relevant risk factors, and generate a transparent review summary.</p></div>
+      <div class="warning"><b>Not a diagnosis</b><p>This educational prototype cannot detect, confirm, or rule out cancer. A radiologist or qualified clinician must interpret medical imaging.</p></div>
+    </section>
+
+    <section class="workspace">
+      <article class="card viewer-card">
+        <div class="card-head"><div><span>01</span><div><small>IMAGING</small><h2>Chest image</h2></div></div><button id="clearImage" class="text-button" disabled>Clear</button></div>
+        <label class="dropzone" id="dropzone" for="fileInput">
+          <input id="fileInput" type="file" accept="image/png,image/jpeg,image/webp">
+          <div class="upload-copy"><span class="upload-icon">＋</span><b>Choose, drop, or paste an image</b><small>Press ⌘V anywhere · PNG, JPEG, or WEBP</small></div>
+          <canvas id="imageCanvas"></canvas>
+        </label>
+        <div class="viewer-tools">
+          <label>Brightness <input id="brightness" type="range" min="50" max="160" value="100"><output id="brightnessOut">100%</output></label>
+          <label>Contrast <input id="contrast" type="range" min="50" max="180" value="100"><output id="contrastOut">100%</output></label>
+          <button id="invert">Invert</button>
+        </div>
+        <div class="quality-grid">
+          <div><span>Resolution</span><b id="resolution">—</b></div><div><span>Exposure</span><b id="exposure">—</b></div><div><span>Contrast</span><b id="qualityContrast">—</b></div><div><span>Image quality</span><b id="qualityScore">Awaiting image</b></div>
+        </div>
+      </article>
+
+      <article class="card intake-card">
+        <div class="card-head"><div><span>02</span><div><small>CONTEXT</small><h2>Review factors</h2></div></div></div>
+        <div class="form-grid">
+          <label>Age<input id="age" type="number" min="18" max="100" value="55"></label>
+          <label>Smoking history<select id="smoking"><option value="0">Never</option><option value="1">Former</option><option value="2">Current</option></select></label>
+          <label>Pack-years<input id="packYears" type="number" min="0" max="150" value="0"></label>
+          <label>Prior cancer<select id="priorCancer"><option value="0">No</option><option value="1">Yes</option></select></label>
+          <label>Persistent cough<select id="cough"><option value="0">No</option><option value="1">Yes</option></select></label>
+          <label>Coughing blood<select id="blood"><option value="0">No</option><option value="1">Yes</option></select></label>
+          <label>Unexplained weight loss<select id="weightLoss"><option value="0">No</option><option value="1">Yes</option></select></label>
+          <label>Chest pain / breathlessness<select id="chestSymptoms"><option value="0">No</option><option value="1">Yes</option></select></label>
+        </div>
+        <button id="analyze" class="primary" disabled>Generate review summary</button>
+        <p id="analysisStatus" class="analysis-status" role="status">Upload an image to enable the summary.</p>
+        <p class="consent">By continuing, you acknowledge this is an educational prototype and not medical advice.</p>
+      </article>
+
+      <article class="card result-card" id="results">
+        <div class="card-head"><div><span>03</span><div><small>SUMMARY</small><h2>Review priority</h2></div></div><button id="download" class="text-button" disabled>Download</button></div>
+        <div class="empty-result" id="emptyResult"><div class="rings"></div><b>No summary yet</b><p>Add an image and generate a review summary.</p></div>
+        <div class="result" id="result" hidden>
+          <div class="priority" id="priority"><small>REVIEW PRIORITY</small><strong id="priorityLabel">—</strong><p id="priorityText"></p></div>
+          <div class="score-line"><span>Context score</span><b id="scoreValue">0 / 100</b></div><div class="score-track"><i id="scoreBar"></i></div>
+          <section><h3>What influenced this summary</h3><ul id="factors"></ul></section>
+          <section><h3>Suggested next step</h3><p id="nextStep"></p></section>
+          <div class="urgent" id="urgent" hidden><b>Seek urgent medical care</b><p>Coughing blood or severe/new breathing difficulty needs prompt professional assessment.</p></div>
+        </div>
+      </article>
+    </section>
+
+    <footer><b>Educational prototype only.</b> Not FDA-cleared, not clinically validated, and not intended for patient diagnosis, screening, or treatment decisions.</footer>
+  </main>
+  <script src="app.js?v=clipboard-paste-3"></script>
+</body>
+</html>
